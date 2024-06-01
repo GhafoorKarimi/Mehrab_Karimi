@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+    {% translate 'Log out' %}
+{% endblock %}
+
+{% block content %}
+    
+    {% translate 'Log out' as x %}
+    {% translate 'Are you sure to exit?' as y %}
+    <h1>{{x}}</h1>
+    <h2>{{y}}</h2>
+    
+    <form action="" method="post">
+        {% csrf_token %}`
+        {{ form|crispy }}
+        <input type="submit" value="{% trans 'Are you sure?' %}">
+    </form>
+{% endblock %}

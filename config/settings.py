@@ -38,10 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    #third party apps
+    'crispy_forms',
+    'crispy_bootstrap4',
+    'allauth',
+    'allauth.account',
+
     #my apps:
     'accounts',
     'pages',
 ]
+
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Add the account middleware:
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -107,6 +118,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    #django all auth
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -130,3 +151,12 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
+#all auth settings
+ACCOUNT_SESSION_REMEMBER = True
+
+# crispy forms settings
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
