@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,16 +39,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     
+    'jalali_date',
+
     #third party apps
     'crispy_forms',
     'crispy_bootstrap4',
     'allauth',
     'allauth.account',
+    'ckeditor',
+    'rosetta',
 
     #my apps:
     'accounts',
     'pages',
+    'products',
+    'persian_translate',
 ]
 
 
@@ -81,6 +90,10 @@ TEMPLATES = [
         },
     },
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -131,12 +144,32 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa'
 
-TIME_ZONE = 'UTC'
+LANGUAGES = (
+    ('en', 'English'),
+    ('fa', 'Persian'),
+)
+
+
+#for translate in root templates (way 1)
+# PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+# LOCALE_PATHS = (
+#     os.path.join(PROJECT_PATH, '../locale'),
+# )
+
+#for translate in root templates (way 2)
+LOCALE_PATHS = (
+    'templates/../locale',
+)
+
+
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 
@@ -144,6 +177,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

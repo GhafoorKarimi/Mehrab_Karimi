@@ -9,6 +9,11 @@ mysqlclient = "*"
 django-allauth = "*"
 django-crispy-forms = "*"
 crispy-bootstrap4 = "*"
+django-ckeditor = "*"
+pillow = "*"
+django-jalali-date = "*"
+django-rosetta = "*"
+setuptools = "*"
 
 [dev-packages]
 
